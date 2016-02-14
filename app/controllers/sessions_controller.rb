@@ -1,14 +1,20 @@
 class SessionsController < ApplicationController
   def new
+    @user = User.new
+    @users = User.all
   end
 
   def create
-    if current_user #already logged in
+    if user_signed_in?
       redirect_to user_path(current_user)
     else
-      user = User.find_by(name: params[:name])
-      session[:user_id] = user.id
-      redirect_to user_path(user)
+      user = User.find(params[:user][:id])
+      if user
+        session[:user_id] = user.id
+        redirect_to user_path(user)
+      else
+        redirect_to signin_path
+      end
     end
   end
 

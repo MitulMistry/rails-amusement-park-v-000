@@ -1,0 +1,14 @@
+<h3><%= @attraction.name %></h3>
+<p>Minimum height: <%= @attraction.min_height %> inches</p>
+<p>Nausea Rating: <%= @attraction.nausea_rating %></p>
+<p>Happiness Rating: <%= @attraction.happiness_rating %></p>
+<p>Tickets: <%= @attraction.tickets %></p><br>
+
+<% if current_user.admin %>
+  <p><%= link_to "Edit Attraction", edit_attraction_path(@attraction) %></p>
+<% else %>
+  <%= form_tag url_for(:controller => 'rides', :action => 'create'), method: "post" do %>
+    <input type="hidden" value="<%= @attraction.id %>" name="attraction_id" id="attraction_id">
+   <%= submit_tag "Go on this ride" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<h1>Log in</h1>
+<%= form_for @user, :url => url_for(:controller => 'sessions', :action => 'create') do |f|  %>
+<div>
+  <%= f.label "Select name:" %><br>
+  <%= f.collection_select :id, @users, :id, :name, include_blank: 'Choose a User' %>
+</div>
+<div>
+  <br><%= f.submit "Sign In" %>
+</div>
+<% end %>
